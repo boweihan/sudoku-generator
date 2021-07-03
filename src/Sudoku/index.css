@@ -1,0 +1,12 @@
+.sudoku {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin: auto;
+}
+
+button {
+  padding: 5px;
+}

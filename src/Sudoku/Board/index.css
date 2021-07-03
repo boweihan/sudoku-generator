@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.board {
+  width: 80vh;
+  height: 80vh;
+}
+
+.row {
+  height: 11.11111%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.column {
+  height: 100%;
+  border: 1px solid black;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.column.empty {
+  background-color: yellow;
+}
+
+.cell {
+  font-weight: bold;
+}
