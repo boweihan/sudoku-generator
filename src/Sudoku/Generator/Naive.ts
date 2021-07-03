@@ -58,8 +58,6 @@ class NaiveGenerator implements Generator {
       }
       i++;
     }
-
-    console.log(this.board);
   };
 
   getBoard = (): Board => {

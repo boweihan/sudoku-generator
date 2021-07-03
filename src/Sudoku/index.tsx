@@ -1,6 +1,6 @@
 import * as React from "react";
 import Board from "./Board/index";
-import Generator from "./Generator/Naive";
+import Generator from "./Generator/index";
 import "./index.css";
 
 const { useState } = React;

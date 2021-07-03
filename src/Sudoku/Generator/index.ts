@@ -1,3 +1,3 @@
-import NaiveGenerator from "./Naive";
+import Generator from "./Backtrack";
 
-export default NaiveGenerator;
+export default Generator;
