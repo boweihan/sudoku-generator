@@ -1,28 +1,23 @@
 import * as React from "react";
 import "./index.css";
+import type { Board } from "../types";
 
 type Props = {
-  rows: Array<Array<number>>;
+  board: Board;
 };
 
-const Board = ({ rows }: Props) => {
-  return (
-    <div className="board">
-      {rows.map((column) => {
-        return (
-          <div className="row">
-            {column.map((cell) => {
-              return (
-                <div className={`column ${cell ? "" : "empty"}`}>
-                  <div className="cell">{cell ? cell : ""}</div>
-                </div>
-              );
-            })}
+const SudokuBoard = ({ board }: Props) => (
+  <div className="board">
+    {board.map((column) => (
+      <div className="row">
+        {column.map((cell) => (
+          <div className={`column ${cell ? "" : "empty"}`}>
+            <div className="cell">{cell ? cell : ""}</div>
           </div>
-        );
-      })}
-    </div>
-  );
-};
+        ))}
+      </div>
+    ))}
+  </div>
+);
 
-export default Board;
+export default SudokuBoard;

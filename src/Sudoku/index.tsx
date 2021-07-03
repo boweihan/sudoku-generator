@@ -1,25 +1,25 @@
 import * as React from "react";
 import Board from "./Board/index";
+import Generator from "./Generator/Naive";
 import "./index.css";
 
+const { useState } = React;
+
 const Sudoku = () => {
+  const [board, setBoard] = useState([[]]);
   return (
     <div className="sudoku">
       <h1>SUDOKU SOLVER</h1>
-      <Board
-        rows={[
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, undefined, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          [1, 2, 3, 4, 5, 6, 7, undefined, 9],
-          [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        ]}
-      />
-      <button>Reset</button>
+      <Board board={board} />
+      <button
+        onClick={() => {
+          let gen = new Generator();
+          gen.generate();
+          setBoard(gen.getBoard());
+        }}
+      >
+        Generate
+      </button>
       <button>Solve</button>
     </div>
   );
