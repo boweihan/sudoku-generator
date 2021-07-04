@@ -4,12 +4,23 @@ import type { Generator } from "./interface";
 const BOARD_SIZE = 9;
 
 function nextEmptySpot(board: Board) {
+  let valid = [];
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
-      if (!board[i][j]) return [i, j];
+      if (!board[i][j]) {
+        valid.push([i, j]);
+        if (valid.length > 1) {
+          return valid[Math.floor(Math.random() * valid.length)];
+        }
+      }
     }
   }
-  return [-1, -1];
+
+  if (valid.length === 0) {
+    return [-1, -1];
+  }
+
+  return valid[Math.floor(Math.random() * valid.length)];
 }
 
 function checkRow(board: Board, row: number, value: number) {
@@ -75,7 +86,7 @@ function solve(board: Board) {
   }
 
   if (nextEmptySpot(board)[0] !== -1) {
-    board[row][col] = 0;
+    board[row][col] = undefined;
   }
 
   return board;
@@ -83,8 +94,10 @@ function solve(board: Board) {
 
 class BacktrackGenerator implements Generator {
   board: Board;
+  toRemove: number;
 
-  constructor() {
+  constructor(toRemove: number) {
+    this.toRemove = toRemove;
     this.board = [];
 
     for (let i = 0; i < BOARD_SIZE; i++) {
@@ -103,6 +116,37 @@ class BacktrackGenerator implements Generator {
   generate = (): void => {
     this.reset();
     this.board = solve(this.board);
+    this.removeCells();
+  };
+
+  solve = (): void => {
+    this.board = solve([...this.board]);
+  };
+
+  removeCells = (): void => {
+    let removed = 0;
+
+    while (removed < this.toRemove) {
+      let toRemove = Math.floor(Math.random() * 64);
+      let row = Math.floor(toRemove / 8);
+      let column = toRemove % 8;
+
+      if (!this.board[row][column]) {
+        continue;
+      }
+
+      let newBoard = [];
+      for (let i = 0; i < this.board.length; i++) {
+        newBoard.push([...this.board[i]]);
+      }
+      newBoard[row][column] = undefined;
+      newBoard = solve(newBoard);
+
+      if (nextEmptySpot(newBoard)[0] === -1) {
+        this.board[row][column] = undefined;
+        removed++;
+      }
+    }
   };
 
   getBoard = (): Board => {

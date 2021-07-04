@@ -5,22 +5,31 @@ import "./index.css";
 
 const { useState } = React;
 
+const gen = new Generator(10);
+
 const Sudoku = () => {
   const [board, setBoard] = useState([[]]);
+
   return (
     <div className="sudoku">
       <h1>SUDOKU SOLVER</h1>
-      <Board board={board} />
+      <Board board={board} key={new Date().getTime()} />
       <button
         onClick={() => {
-          let gen = new Generator();
           gen.generate();
           setBoard(gen.getBoard());
         }}
       >
         Generate
       </button>
-      <button>Solve</button>
+      <button
+        onClick={() => {
+          gen.solve();
+          setBoard(gen.getBoard());
+        }}
+      >
+        Solve
+      </button>
     </div>
   );
 };

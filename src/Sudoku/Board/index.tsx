@@ -9,9 +9,12 @@ type Props = {
 const SudokuBoard = ({ board }: Props) => (
   <div className="board">
     {board.map((column) => (
-      <div className="row">
+      <div className="row" key={String(column)}>
         {column.map((cell) => (
-          <div className={`column ${cell ? "" : "empty"}`}>
+          <div
+            className={`column ${cell ? "" : "empty"}`}
+            key={String(column) + String(cell)}
+          >
             <div className="cell">{cell ? cell : ""}</div>
           </div>
         ))}
